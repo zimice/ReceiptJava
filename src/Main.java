@@ -17,7 +17,6 @@ public class Main {
 		r.addItem(a);
 		System.out.println(r.getTotalCost());
 		System.out.println(r.getItems());
-		         
 	}
 
 }

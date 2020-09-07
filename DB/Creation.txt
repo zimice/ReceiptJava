@@ -5,3 +5,10 @@ price REAL NOT NULL,
 currency TEXT 
 );
 
+CREATE TABLE receipt(
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+dateOfCreation DATE NOT NULL,
+dic TEXT(50),
+numberOfReceipt TEXT(50),
+address TEXT(250)
+);

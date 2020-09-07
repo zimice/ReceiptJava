@@ -1,0 +1,16 @@
+
+$ADRESS$
+
+UCTENKA: $numberOfReceipt$ Datum UZP: $dateOfCreation$
+DIC: $dic$
+
+OBJEDNAVKA: $numberOfReceipt$
+=======================================================
+Nazev 		Pocet		Cena		Celkem
+-------------------------------------------------------
+$ITEM.NAME$	$ITEM.TIMES$			$ITEM.PRICE$ $ITEM.CURRENCY$
+
+=======================================================
+Hotove 								$Currency$ $TotalPrice$
+
+------------------------------------------------------

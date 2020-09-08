@@ -12,11 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Print {
-	private Receipt receipt;
+	private static Receipt receipt;
 	private final String TEMPLATE_URL = "rsc/template.txt";
 	private final String EXPORT_URL = "exported/";
 	private String filename;
-	private static final String[] keywords= {"$ADRESS$","$numberOfReceipt$","$dateOfCreation$","$dic$","$ITEM.NAME$","$ITEM.TIMES$","$ITEM.PRICE$","$ITEM.CURRENCY$",""};
+	private static final String[] keywords= {"$ADRESS$","$numberOfReceipt$","$dateOfCreation$","$dic$","$Currency$","$TotalPrice$"};// ,"$ITEM.NAME$","$ITEM.TIMES$","$ITEM.PRICE$","$ITEM.CURRENCY$",
+	private static final String[] replacingKeywords= {receipt.getAddress(),receipt.getNumberOfReceipt(),receipt.getDateOfCreationToString(),receipt.getDic()};
 	public Print(Receipt receipt,String filename) {
 		this.receipt = receipt;
 		this.filename = filename;

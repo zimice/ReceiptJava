@@ -63,10 +63,4 @@ public class Item {
 			return false;
 		return true;
 	}
-	
-	enum Currency{
-		czk,
-		eur,
-		usd
-	}
 }

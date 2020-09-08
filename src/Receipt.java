@@ -9,8 +9,36 @@ public class Receipt {
 	private String dic;
 	private String numberOfReceipt;
 	private String address;
+	private Currency currency;
+
 	public String getAddress() {
 		return address;
+	}
+
+	public Date getDateOfCreation() {
+		return dateOfCreation;
+	}
+	public String getDateOfCreationToString() {
+		return dateOfCreation.toString();
+	}
+	public void setDateOfCreation(Date dateOfCreation) {
+		this.dateOfCreation = dateOfCreation;
+	}
+
+	public String getDic() {
+		return dic;
+	}
+
+	public void setDic(String dic) {
+		this.dic = dic;
+	}
+
+	public String getNumberOfReceipt() {
+		return numberOfReceipt;
+	}
+
+	public void setNumberOfReceipt(String numberOfReceipt) {
+		this.numberOfReceipt = numberOfReceipt;
 	}
 
 	public void setAddress(String address) {
@@ -18,7 +46,9 @@ public class Receipt {
 	}
 
 	private Hashtable<String, Item> items;
-
+	private Item convertToSameCurrency(Item itemToConvert) {
+		
+	}
 	public double getTotalCost() {
 		int sum = 0;
 		Enumeration<String> keys = items.keys();
@@ -63,7 +93,7 @@ public class Receipt {
 		this.dic = dic;
 		this.numberOfReceipt = numberOfReceipt;
 		LocalDateTime now = LocalDateTime.now();
-		this.dateOfCreation = new Date(now.getYear(),now.getMonthValue(),now.getDayOfMonth());
+		this.dateOfCreation = new Date(now.getYear(), now.getMonthValue(), now.getDayOfMonth());
 		items = new Hashtable<>();
 	}
 }

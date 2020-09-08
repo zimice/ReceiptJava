@@ -16,6 +16,7 @@ public class Print {
 	private final String TEMPLATE_URL = "rsc/template.txt";
 	private final String EXPORT_URL = "exported/";
 	private String filename;
+	private static final String[] keywords= {"$ADRESS$","$numberOfReceipt$","$dateOfCreation$","$dic$","$ITEM.NAME$","$ITEM.TIMES$","$ITEM.PRICE$","$ITEM.CURRENCY$",""};
 	public Print(Receipt receipt,String filename) {
 		this.receipt = receipt;
 		this.filename = filename;
@@ -43,7 +44,7 @@ public class Print {
 	            FileWriter fw = new FileWriter(f1);
 	            BufferedWriter out = new BufferedWriter(fw);
 	            for(String s : lines) {
-	            	s.replace("",""); //TODO 
+	            	s.replace("	",""); //TODO 
 	                 out.write(s);
 	            }
 	            out.flush();

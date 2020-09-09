@@ -44,13 +44,9 @@ public class Print {
 
 	            FileWriter fw = new FileWriter(f1);
 	            BufferedWriter out = new BufferedWriter(fw);
-	            for(int i = 0; i< lines.size();i++) {
-	            	for(int d =0;d<keywords.length;d++) {
-	            		lines.get(i).replace(keywords[d],replacingKeywords[d]);
-	            	}
-	            	if(lines.get(i).contains("ITEM")) {
-	            		
-	            	}
+	            for(String s : lines) {
+	            	s.replace("	",""); //TODO 
+	                 out.write(s);
 	            }
 	            out.flush();
 	            out.close();

@@ -49,19 +49,23 @@ public class Receipt {
 
 	private Hashtable<String, Item> items;
 
-	private Item convertToSameCurrency(Item itemToConvert) throws Exception {
-		Item testitem = itemToConvert;
+	private static Item convertToSameCurrency(Item itemToConvert) throws Exception {
 		if (itemToConvert.getCurrency() == Currency.czk) {
-			testitem.setPrice(currency == Currency.eur ? testitem.getPrice()/26 : testitem.getPrice());
-			testitem.setPrice(currency == Currency.usd ? testitem.getPrice()/22 : testitem.getPrice());
-			return testitem;
+			itemToConvert.setPrice(currency == Currency.eur ? itemToConvert.getPrice()/26 : itemToConvert.getPrice());
+			itemToConvert.setPrice(currency == Currency.usd ? itemToConvert.getPrice()/22 : itemToConvert.getPrice());
+			return itemToConvert;
 		}
 		if (itemToConvert.getCurrency() == Currency.usd) {
-
+			itemToConvert.setPrice(currency == Currency.eur ? itemToConvert.getPrice()*0.85 : itemToConvert.getPrice());
+			itemToConvert.setPrice(currency == Currency.czk ? itemToConvert.getPrice()*22 : itemToConvert.getPrice());
+			return itemToConvert;
 		}
 		if (itemToConvert.getCurrency() == Currency.eur) {
-
+			itemToConvert.setPrice(currency == Currency.usd ? itemToConvert.getPrice()*1.18 : itemToConvert.getPrice());
+			itemToConvert.setPrice(currency == Currency.czk ? itemToConvert.getPrice()*26: itemToConvert.getPrice());
+			return itemToConvert;
 		}
+		throw new Exception("Money is not in list of czk,usd,eur");
 
 	}
 
@@ -76,6 +80,7 @@ public class Receipt {
 	}
 
 	public void addItem(Item itemToAdd) {
+		itemToAdd= convertToSameCurrency(itemToAdd);
 		if (items.get(itemToAdd.getName()) != null) {
 			Item savedItem = items.get(itemToAdd.getName());
 			items.get(savedItem.getName()).addTimes(savedItem.getTimes());

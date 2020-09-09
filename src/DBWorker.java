@@ -1,7 +1,7 @@
 import java.sql.*;
 
 public class DBWorker {
-	private final String Default_Url = "jdbc:sqlite:C:DB/Receipt.db";
+	private final String Default_Url = "jdbc:sqlite:DB/Receipt.db";
 	private Connection conn;
 
 	public DBWorker() {
@@ -27,15 +27,40 @@ public class DBWorker {
 	}
 
 	public String getReceiptIdsandNumbers() {
-		String result = "", sql = "SELECT id,numberOfReceipt FROM receipt";
+		String result = "", sql = "SELECT  FROM receipt";
 		try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
 			while (rs.next()) {
-				result+=rs.getInt("id")+"\t"+rs.getString("numberOfReceipt");
+				result += rs.getInt("id");
 			}
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 		}
 		return result;
+	}
+
+	public String getAllReceiptInfo(int receiptNumber) {
+		String sql = "SELECT r.id,r.dic,rc.name as ReceiptCurrency,i.name,i.price,ri.name as ItemCurrency,itemsInReceipt.times\r\n"
+				+ "from receipt as r inner join currency as rc on r.currency_id = rc.id\r\n"
+				+ " inner join itemsInReceipt on itemsInReceipt.receipt_id = r.id\r\n"
+				+ " inner join item as i on itemsInReceipt.item_id = i.id\r\n"
+				+ " inner join currency as ri on i.currency_id = ri.id  where itemsInReceipt.receipt_id = "+ receiptNumber;
+		String result = "r.id\tr.dic\tr.currency\ti.name\ti.price\ti.currency\titemsInReceipt.times\n";
+		try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+			while (rs.next()) {
+				result += rs.getInt("id") + "\t" + rs.getString("dic") + "\t" + rs.getString("ReceiptCurrency") + "\t"
+						+ rs.getString("name") + "\t" + rs.getDouble("price") + "\t" + rs.getString("ItemCurrency") + "\t\t"
+						+ rs.getInt("times");
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+		}
+		return result;
+	}
+
+	public String insertReceipt() {
+		String response = "";
+
+		return response;
 	}
 
 }

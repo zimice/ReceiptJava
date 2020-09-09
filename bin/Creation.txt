@@ -1,0 +1,35 @@
+CREATE TABLE item(
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+name TEXT(50) NOT NULL UNIQUE,
+price REAL NOT NULL,
+currency_id INTEGER NOT NULL,
+FOREIGN KEY (currency_id) 
+	REFERENCES currency(id)
+);
+
+
+CREATE TABLE receipt(
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+dateOfCreation DATE NOT NULL,
+dic TEXT(50),
+address TEXT(250),
+currency_id INTEGER NOT NULL,
+FOREIGN KEY (currency_id) 
+	REFERENCES currency(id)
+);
+
+
+CREATE TABLE itemsInReceipt(
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+times INTEGER NOT NULL,
+item_id INTEGER NOT NULL,
+receipt_id INTEGER NOT NULL,
+FOREIGN KEY (item_id)
+	REFERENCES item(id),
+FOREIGN KEY (receipt_id)
+	REFERENCES receipt(id)
+);
+
+insert into receipt(dateOfCreation,dic,address,currency) values('2020-09-09','TEST_DIC','TEST_ADDRESS','czk')
+insert into item(name,price,currency_id) values('voda',19.99,1),('kola',29.99,1)
+insert into itemsInReceipt(times,item_id,receipt_id) values (2,1,1),(1,2,1)

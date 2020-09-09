@@ -18,12 +18,13 @@ public class Item {
 	}
 	@Override
 	public String toString() {
-		return "Item [price=" + price + ", name=" + name + ", times=" + times + "]";
+		return "Item [price=" + price + ", name=" + name + ", times=" + times + ", currency=" + currency + "]";
 	}
 	public Item(double price,String name) {
 		this.price = price;
 		this.name = name;
 		this.times = 1;
+		this.currency = Currency.czk;
 	}
 	public Item(double price,String name,int times) {
 		this.price = price;
@@ -31,13 +32,13 @@ public class Item {
 		this.times = times;
 	}
 	public double getPrice() {
-		return price;
+		return price*times;
 	}
 	public void setPrice(double price) throws Exception {
-		if(times < 1 ) {
-			throw new Exception("price must be a natural number");
+		if(price < 0 ) {
+			throw new Exception("Price must be higher than zero");
 		}else {
-			this.times = times;
+			this.price = price;
 		}
 	}
 	public String getName() {

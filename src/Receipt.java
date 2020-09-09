@@ -9,7 +9,8 @@ public class Receipt {
 	private String dic;
 	private String numberOfReceipt;
 	private String address;
-	private Currency currency;
+	private static Currency currency;
+	private Hashtable<String, Item> items;
 
 	public String getAddress() {
 		return address;
@@ -47,26 +48,13 @@ public class Receipt {
 		this.address = address;
 	}
 
-	private Hashtable<String, Item> items;
-
-	private static Item convertToSameCurrency(Item itemToConvert) throws Exception {
-		if (itemToConvert.getCurrency() == Currency.czk) {
-			itemToConvert.setPrice(currency == Currency.eur ? itemToConvert.getPrice()/26 : itemToConvert.getPrice());
-			itemToConvert.setPrice(currency == Currency.usd ? itemToConvert.getPrice()/22 : itemToConvert.getPrice());
-			return itemToConvert;
+	private static Item convertToSameCurrency(Item itemToConvert) {
+		try {
+			itemToConvert.setPrice(Currency.toDoubleCrypto(itemToConvert.getCurrency(), itemToConvert.getPrice()));
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
 		}
-		if (itemToConvert.getCurrency() == Currency.usd) {
-			itemToConvert.setPrice(currency == Currency.eur ? itemToConvert.getPrice()*0.85 : itemToConvert.getPrice());
-			itemToConvert.setPrice(currency == Currency.czk ? itemToConvert.getPrice()*22 : itemToConvert.getPrice());
-			return itemToConvert;
-		}
-		if (itemToConvert.getCurrency() == Currency.eur) {
-			itemToConvert.setPrice(currency == Currency.usd ? itemToConvert.getPrice()*1.18 : itemToConvert.getPrice());
-			itemToConvert.setPrice(currency == Currency.czk ? itemToConvert.getPrice()*26: itemToConvert.getPrice());
-			return itemToConvert;
-		}
-		throw new Exception("Money is not in list of czk,usd,eur");
-
+		return itemToConvert;
 	}
 
 	public double getTotalCost() {
@@ -74,13 +62,13 @@ public class Receipt {
 		Enumeration<String> keys = items.keys();
 		while (keys.hasMoreElements()) {
 			String key = keys.nextElement();
-			sum += items.get(key).getPrice();
+			sum += Currency.fromDoubleCrypto(currency, items.get(key).getPrice());
 		}
 		return sum;
 	}
 
 	public void addItem(Item itemToAdd) {
-		itemToAdd= convertToSameCurrency(itemToAdd);
+		itemToAdd = convertToSameCurrency(itemToAdd);
 		if (items.get(itemToAdd.getName()) != null) {
 			Item savedItem = items.get(itemToAdd.getName());
 			items.get(savedItem.getName()).addTimes(savedItem.getTimes());

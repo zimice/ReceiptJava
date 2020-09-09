@@ -16,7 +16,7 @@ public class Main {
 		r.addItem(b);
 		r.addItem(c);
 		r.addItem(a);
-		System.out.println(r.getItems());
+		System.out.println(r.getStringOfItems());
 	}
 
 }

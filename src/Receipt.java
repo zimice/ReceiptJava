@@ -77,7 +77,7 @@ public class Receipt {
 		}
 	}
 
-	public String getItems() {
+	public String getStringOfItems() {
 		String result = "";
 		Enumeration<String> keys = items.keys();
 		while (keys.hasMoreElements()) {
@@ -86,7 +86,9 @@ public class Receipt {
 		}
 		return result;
 	}
-
+	public Hashtable<String,Item> getItems() {
+		return items;
+	}
 	public Receipt(Date dateOfCreation, String dic, String numberOfReceipt, Hashtable<String, Item> items) {
 		super();
 		this.dateOfCreation = dateOfCreation;

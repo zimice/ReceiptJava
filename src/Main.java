@@ -17,6 +17,8 @@ public class Main {
 		r.addItem(c);
 		r.addItem(a);
 		System.out.println(r.getItems());
+		DBWorker d= new DBWorker();
+		System.out.println(d.getReceiptIdsandNumbers());
 	}
 
 }

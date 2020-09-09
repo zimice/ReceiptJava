@@ -1,15 +1,15 @@
 import java.sql.*;
 
 public class DBWorker {
-	private final String Default_Url = "jdbc:sqlite:/DB/receipt.db";
-	private Connection con;
+	private final String Default_Url = "jdbc:sqlite:C:DB/Receipt.db";
+	private Connection conn;
 
 	public DBWorker() {
-		con = connect();
+		conn = connect();
 	}
 
 	public DBWorker(String url) {
-		con = connect(url);
+		conn = connect(url);
 	}
 
 	private Connection connect() {
@@ -24,6 +24,18 @@ public class DBWorker {
 			System.err.println(e.getMessage());
 		}
 		return conn;
+	}
+
+	public String getReceiptIdsandNumbers() {
+		String result = "", sql = "SELECT id,numberOfReceipt FROM receipt";
+		try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+			while (rs.next()) {
+				result+=rs.getInt("id")+"\t"+rs.getString("numberOfReceipt");
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+		}
+		return result;
 	}
 
 }

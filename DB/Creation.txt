@@ -12,3 +12,14 @@ dic TEXT(50),
 numberOfReceipt TEXT(50),
 address TEXT(250)
 );
+
+CREATE TABLE itemsInReceipt(
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+times INTEGER NOT NULL,
+item_id INTEGER NOT NULL,
+receipt_id INTEGER NOT NULL,
+FOREIGN KEY (item_id)
+	REFERENCES item(id),
+FOREIGN KEY (receipt_id)
+	REFERENCES receipt(id)
+);

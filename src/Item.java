@@ -4,6 +4,12 @@ public class Item {
 	private String name;
 	private int times;
 	private Currency currency;
+	public Currency getCurrency() {
+		return currency;
+	}
+	public void setCurrency(Currency currency) {
+		this.currency = currency;
+	}
 	public int getTimes() {
 		return times;
 	}

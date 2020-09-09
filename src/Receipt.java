@@ -18,9 +18,11 @@ public class Receipt {
 	public Date getDateOfCreation() {
 		return dateOfCreation;
 	}
+
 	public String getDateOfCreationToString() {
 		return dateOfCreation.toString();
 	}
+
 	public void setDateOfCreation(Date dateOfCreation) {
 		this.dateOfCreation = dateOfCreation;
 	}
@@ -46,9 +48,23 @@ public class Receipt {
 	}
 
 	private Hashtable<String, Item> items;
-	private Item convertToSameCurrency(Item itemToConvert) {
-		
+
+	private Item convertToSameCurrency(Item itemToConvert) throws Exception {
+		Item testitem = itemToConvert;
+		if (itemToConvert.getCurrency() == Currency.czk) {
+			testitem.setPrice(currency == Currency.eur ? testitem.getPrice()/26 : testitem.getPrice());
+			testitem.setPrice(currency == Currency.usd ? testitem.getPrice()/22 : testitem.getPrice());
+			return testitem;
+		}
+		if (itemToConvert.getCurrency() == Currency.usd) {
+
+		}
+		if (itemToConvert.getCurrency() == Currency.eur) {
+
+		}
+
 	}
+
 	public double getTotalCost() {
 		int sum = 0;
 		Enumeration<String> keys = items.keys();

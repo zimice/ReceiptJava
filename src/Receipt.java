@@ -5,26 +5,19 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 
 public class Receipt {
-	private Date dateOfCreation;
+	private String dateOfCreation;
 	private String dic;
 	private String address;
-	private static Currency currency;
+	private  Currency currency;
 	private Hashtable<String, Item> items;
+	private int numberOfReceipt;
 
 	public String getAddress() {
 		return address;
 	}
 
-	public Date getDateOfCreation() {
+	public String getDateOfCreation() {
 		return dateOfCreation;
-	}
-
-	public String getDateOfCreationToString() {
-		return dateOfCreation.toString();
-	}
-
-	public void setDateOfCreation(Date dateOfCreation) {
-		this.dateOfCreation = dateOfCreation;
 	}
 
 	public String getDic() {
@@ -34,7 +27,6 @@ public class Receipt {
 	public void setDic(String dic) {
 		this.dic = dic;
 	}
-
 
 	public void setAddress(String address) {
 		this.address = address;
@@ -68,9 +60,11 @@ public class Receipt {
 			items.put(itemToAdd.getName(), itemToAdd);
 		}
 	}
+
 	public int numberOfItems() {
 		return items.size();
 	}
+
 	public String getItems() {
 		String result = "";
 		Enumeration<String> keys = items.keys();
@@ -81,7 +75,7 @@ public class Receipt {
 		return result;
 	}
 
-	public Receipt(Date dateOfCreation, String dic, Hashtable<String, Item> items,Currency currency) {
+	public Receipt(String dateOfCreation, String dic, Hashtable<String, Item> items, Currency currency) {
 		super();
 		this.dateOfCreation = dateOfCreation;
 		this.dic = dic;
@@ -95,19 +89,28 @@ public class Receipt {
 		super();
 		this.dic = dic;
 		LocalDateTime now = LocalDateTime.now();
-		this.dateOfCreation = new Date(now.getYear(), now.getMonthValue(), now.getDayOfMonth());
+		this.dateOfCreation = new Date(now.getYear(), now.getMonthValue(), now.getDayOfMonth()).toString();
 		this.address = "local";
 		this.currency = Currency.czk;
 		items = new Hashtable<>();
 	}
-	public Receipt(String dic, String numberOfReceipt,Currency currency) {
+
+	public Receipt(String dic, String numberOfReceipt, Currency currency) {
 		super();
 		this.dic = dic;
 		LocalDateTime now = LocalDateTime.now();
-		this.dateOfCreation = new Date(now.getYear(), now.getMonthValue(), now.getDayOfMonth());
+		this.dateOfCreation = new Date(now.getYear(), now.getMonthValue(), now.getDayOfMonth()).toString();
 		this.address = "local";
 		this.currency = currency;
 		items = new Hashtable<>();
+	}
+
+	public Receipt(int numberOfReceipt, String dateOfCreation, String dic, String address, String currency) {
+		this.numberOfReceipt = numberOfReceipt;
+		this.dateOfCreation = dateOfCreation;
+		this.dic = dic;
+		this.address = address;
+		this.currency = Currency.valueOf(currency);
 	}
 
 	public Currency getCurrency() {

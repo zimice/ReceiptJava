@@ -81,11 +81,12 @@ public class Receipt {
 		return result;
 	}
 
-	public Receipt(Date dateOfCreation, String dic, Hashtable<String, Item> items) {
+	public Receipt(Date dateOfCreation, String dic, Hashtable<String, Item> items,Currency currency) {
 		super();
 		this.dateOfCreation = dateOfCreation;
 		this.dic = dic;
 		this.items = items;
+		this.currency = currency;
 		items = new Hashtable<>();
 	}
 
@@ -95,6 +96,21 @@ public class Receipt {
 		this.dic = dic;
 		LocalDateTime now = LocalDateTime.now();
 		this.dateOfCreation = new Date(now.getYear(), now.getMonthValue(), now.getDayOfMonth());
+		this.address = "local";
+		this.currency = Currency.czk;
 		items = new Hashtable<>();
+	}
+	public Receipt(String dic, String numberOfReceipt,Currency currency) {
+		super();
+		this.dic = dic;
+		LocalDateTime now = LocalDateTime.now();
+		this.dateOfCreation = new Date(now.getYear(), now.getMonthValue(), now.getDayOfMonth());
+		this.address = "local";
+		this.currency = currency;
+		items = new Hashtable<>();
+	}
+
+	public Currency getCurrency() {
+		return this.currency;
 	}
 }

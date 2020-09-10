@@ -56,7 +56,7 @@ public class Print {
 				}
 				if (lines.get(i).contains("ITEM")) {
 					for (int j = 0; j < receipt.numberOfItems(); j++)
-						lines.get(i).replace("$ITEM.NAME$", receipt.getItem());
+					//	lines.get(i).replace("$ITEM.NAME$", receipt.getItem());
 				}
 			}
 			out.flush();

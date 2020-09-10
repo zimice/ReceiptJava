@@ -57,10 +57,21 @@ public class DBWorker {
 		}
 		return result;
 	}
-
-	public String insertReceipt() {
+	private int getIdCurrency(Currency currency) {
+		int result=0;
+		String sql = "SELECT id from currency where name LIKE '%"+currency.toString()+"%'";
+		try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+			while (rs.next()) {
+				result += rs.getInt("id") ;
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+		}
+		return result;
+	}
+	public String insertReceipt(Receipt r) {
 		String response = "";
-		String sql = "INSERT INTO receipt()";
+		String sql = "INSERT INTO receipt(dateOfCreation,dic,address,currency_id) values('"+r.getDateOfCreationToString()+"','"+r.getDic()+"','"+r.getAddress()+"','"+getIdCurrency(r.getCurrency())+"')";
 		
 		try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {

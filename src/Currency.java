@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public enum Currency {
+public enum Currency implements Serializable {
 	czk, eur, usd;
 
 	public static double toDoubleCrypto(Currency currency, double amount) {

@@ -26,18 +26,6 @@ public class DBWorker {
 		return conn;
 	}
 
-	public String getReceiptIdsandNumbers() {
-		String result = "", sql = "SELECT  FROM receipt";
-		try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
-			while (rs.next()) {
-				result += rs.getInt("id");
-			}
-		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-		}
-		return result;
-	}
-
 	public String getAllReceiptInfo(int receiptNumber) {
 		String sql = "SELECT r.id,r.dateOfCreation,r.dic,rc.name as ReceiptCurrency,i.name,i.price,ri.name as ItemCurrency,itemsInReceipt.times\r\n"
 				+ "from receipt as r inner join currency as rc on r.currency_id = rc.id\r\n"
@@ -58,7 +46,24 @@ public class DBWorker {
 		return result;
 	}
 
-	public Receipt getReceipt(int id) {
+	public boolean itemExists(String itemName) {
+		boolean result = false;
+		String sql = "SELECT id FROM item where name = '" + itemName + "'";
+		try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+			if (rs.next())
+				result = true;
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+		}
+		return result;
+	}
+
+	public Receipt fillReceiptItems(Receipt r) {
+		Receipt receipt = null;
+		return receipt;
+	}
+
+	private Receipt getBlankReceipt(int id) {
 		Receipt receipt = null;
 		String result = "";
 		String sql = "SELECT r.id as receipt_id,r.dateOfCreation,r.address,r.dic,rc.name as ReceiptCurrency,i.name,i.price,ri.name as ItemCurrency,itemsInReceipt.times\r\n"
@@ -70,14 +75,18 @@ public class DBWorker {
 			while (rs.next()) {
 				receipt = new Receipt(rs.getInt("receipt_id"), rs.getString("dateOfCreation"), rs.getString("dic"),
 						rs.getString("address"), rs.getString("ReceiptCurrency"));
-				result += rs.getInt("id") + "\t" + rs.getDate("dateOfCreation") + "\t" + "\t"
-						+ rs.getString("ReceiptCurrency") + "\t" + rs.getString("name") + "\t" + rs.getDouble("price")
-						+ "\t" + rs.getString("ItemCurrency") + "\t\t" + rs.getInt("times");
 			}
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 		}
 		return receipt;
+	}
+	public Receipt getReceipt(int id) {
+		Receipt result = null;
+		result = getBlankReceipt(id);
+		
+		return result;
+		
 	}
 
 	private int getIdCurrency(Currency currency) {

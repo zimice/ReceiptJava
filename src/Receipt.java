@@ -1,16 +1,21 @@
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-public class Receipt {
+public class Receipt implements Serializable {
 	private String dateOfCreation;
 	private String dic;
 	private String address;
 	private  Currency currency;
 	private Hashtable<String, Item> items;
 	private int numberOfReceipt;
+
+	public int getNumberOfReceipt() {
+		return numberOfReceipt;
+	}
 
 	public String getAddress() {
 		return address;

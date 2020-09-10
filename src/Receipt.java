@@ -7,7 +7,6 @@ import java.util.Hashtable;
 public class Receipt {
 	private Date dateOfCreation;
 	private String dic;
-	private String numberOfReceipt;
 	private String address;
 	private static Currency currency;
 	private Hashtable<String, Item> items;
@@ -36,13 +35,6 @@ public class Receipt {
 		this.dic = dic;
 	}
 
-	public String getNumberOfReceipt() {
-		return numberOfReceipt;
-	}
-
-	public void setNumberOfReceipt(String numberOfReceipt) {
-		this.numberOfReceipt = numberOfReceipt;
-	}
 
 	public void setAddress(String address) {
 		this.address = address;
@@ -76,7 +68,9 @@ public class Receipt {
 			items.put(itemToAdd.getName(), itemToAdd);
 		}
 	}
-
+	public int numberOfItems() {
+		return items.size();
+	}
 	public String getItems() {
 		String result = "";
 		Enumeration<String> keys = items.keys();
@@ -87,11 +81,10 @@ public class Receipt {
 		return result;
 	}
 
-	public Receipt(Date dateOfCreation, String dic, String numberOfReceipt, Hashtable<String, Item> items) {
+	public Receipt(Date dateOfCreation, String dic, Hashtable<String, Item> items) {
 		super();
 		this.dateOfCreation = dateOfCreation;
 		this.dic = dic;
-		this.numberOfReceipt = numberOfReceipt;
 		this.items = items;
 		items = new Hashtable<>();
 	}
@@ -100,7 +93,6 @@ public class Receipt {
 	public Receipt(String dic, String numberOfReceipt) {
 		super();
 		this.dic = dic;
-		this.numberOfReceipt = numberOfReceipt;
 		LocalDateTime now = LocalDateTime.now();
 		this.dateOfCreation = new Date(now.getYear(), now.getMonthValue(), now.getDayOfMonth());
 		items = new Hashtable<>();

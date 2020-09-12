@@ -37,11 +37,6 @@ public class Receipt implements Serializable {
 		this.address = address;
 	}
 
-	private static Item convertToSameCurrency(Item itemToConvert) {
-		itemToConvert.setPrice(Currency.toDoubleCrypto(itemToConvert.getCurrency(), itemToConvert.getPrice()));
-		return itemToConvert;
-	}
-
 	public double getTotalCost() {
 		int sum = 0;
 		Enumeration<String> keys = items.keys();

@@ -18,5 +18,4 @@ public class Main {
 		System.out.println(r1.getItems());
 		System.out.println(d.getAllReceiptInfo(1));
 	}
-
 }

@@ -81,12 +81,13 @@ public class DBWorker {
 		}
 		return receipt;
 	}
+
 	public Receipt getReceipt(int id) {
 		Receipt result = null;
 		result = getBlankReceipt(id);
-		
+
 		return result;
-		
+
 	}
 
 	private int getIdCurrency(Currency currency) {

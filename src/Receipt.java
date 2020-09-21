@@ -57,6 +57,11 @@ public class Receipt implements Serializable {
 		}
 	}
 
+	private Item convertToSameCurrency(Item itemToAdd) {
+		itemToAdd.setPrice(Currency.toDoubleCrypto(itemToAdd.getCurrency(), itemToAdd.getPrice()));
+		return itemToAdd;
+	}
+
 	public int numberOfItems() {
 		return items.size();
 	}

@@ -83,7 +83,7 @@ public class DBWorker {
 	}
 
 	public Receipt getReceipt(int id) {
-		
+
 		Receipt result = null;
 		result = getBlankReceipt(id);
 		return result;
@@ -105,16 +105,27 @@ public class DBWorker {
 
 	public String insertReceipt(Receipt r) {
 		String response = "";
-		String sql = "INSERT INTO receipt(dateOfCreation,dic,address,currency_id) values('"
-				+ r.getDateOfCreationToString() + "','" + r.getDic() + "','" + r.getAddress() + "','"
-				+ getIdCurrency(r.getCurrency()) + "')";
-
+		String sql = "INSERT INTO receipt(dateOfCreation,dic,address,currency_id) values('" + r.getDateOfCreation()
+				+ "','" + r.getDic() + "','" + r.getAddress() + "','" + getIdCurrency(r.getCurrency()) + "')";
+		
 		try (Connection conn = this.connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			// pstmt.setString(1, name);
+			
 			pstmt.executeUpdate();
+			insertReceiptItems(r,conn);
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
+			response = e.getMessage();
 		}
+		return response;
+	}
+
+	private String insertReceiptItems(Receipt r,Connection conn) throws SQLException {
+		String response = "";
+		//TODO listOfItems Receipt
+		String sql = "INSERT INTO itemsInReceipt(times,item_id,receipt_id) values()";
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.executeUpdate();
+
 		return response;
 	}
 

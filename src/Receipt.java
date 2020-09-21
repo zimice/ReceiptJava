@@ -2,8 +2,11 @@
 import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.List;
 
 public class Receipt implements Serializable {
 	private String dateOfCreation;
@@ -56,7 +59,7 @@ public class Receipt implements Serializable {
 			items.put(itemToAdd.getName(), itemToAdd);
 		}
 	}
-
+	
 	private Item convertToSameCurrency(Item itemToAdd) {
 		itemToAdd.setPrice(Currency.toDoubleCrypto(itemToAdd.getCurrency(), itemToAdd.getPrice()));
 		return itemToAdd;
@@ -66,7 +69,7 @@ public class Receipt implements Serializable {
 		return items.size();
 	}
 
-	public String getItems() {
+	public String getItemsToString() {
 		String result = "";
 		Enumeration<String> keys = items.keys();
 		while (keys.hasMoreElements()) {
@@ -75,7 +78,15 @@ public class Receipt implements Serializable {
 		}
 		return result;
 	}
-
+	public ArrayList<Item> getItems(){
+		ArrayList<Item> listOfItems = new ArrayList<>();
+		Enumeration<String> keys = items.keys();
+		while (keys.hasMoreElements()) {
+			String key = keys.nextElement();
+			listOfItems.add(items.get(key));
+	    }
+		return listOfItems;
+	}
 	public Receipt(String dateOfCreation, String dic, Hashtable<String, Item> items, Currency currency) {
 		super();
 		this.dateOfCreation = dateOfCreation;

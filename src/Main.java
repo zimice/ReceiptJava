@@ -11,11 +11,7 @@ public class Main {
 		r.addItem(b);
 		r.addItem(c);
 		r.addItem(a);
-		System.out.println(r.getItems());
+		System.out.println(r.getItemsToString());
 		DBWorker d= new DBWorker();
-		LocalSave.SaveReceipt(r);
-		Receipt r1=LocalLoad.LoadReceipt("0");
-		System.out.println(r1.getItems());
-		System.out.println(d.getAllReceiptInfo(1));
 	}
 }
